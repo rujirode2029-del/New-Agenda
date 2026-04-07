@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="UTF-8">
   <title>Agenda App</title>
 </head>
 
@@ -27,14 +28,15 @@
     import { getFirestore, collection, addDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
     const firebaseConfig = {
-      apiKey: "AIzaSyBO0tz1jV3cggUgWpcQ6L1fEhOMI4Pq2dk",
-      authDomain: "schedu-sumet.firebaseapp.com",
-      projectId: "schedu-sumet"
+      apiKey: "🔥 AIzaSyBO0tz1jV3cggUgWpcQ6L1fEhOMI4Pq2dk",
+      authDomain: "🔥 schedu-sumet.firebaseapp.com",
+      projectId: "🔥 schedu-sumet"
     };
 
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
+    // เพิ่มข้อมูล
     window.addData = async function () {
       await addDoc(collection(db, "agenda"), {
         title: document.getElementById("title").value,
@@ -47,28 +49,25 @@
       });
     };
 
-    function loadData() {
-      onSnapshot(collection(db, "agenda"), (snapshot) => {
-        let html = "";
-        snapshot.forEach(doc => {
-          let d = doc.data();
-          html += `
-            <div style="border:1px solid #ccc; margin:10px; padding:10px;">
-              <b>${d.title}</b><br>
-              🕒 ${d.datetime}<br>
-              📍 ${d.location}<br>
-              👤 ${d.president}<br>
-              👔 ${d.dress}<br>
-              🏢 ${d.dept}<br>
-              📝 ${d.detail}
-            </div>
-          `;
-        });
-        document.getElementById("list").innerHTML = html;
+    // โหลดข้อมูล realtime
+    onSnapshot(collection(db, "agenda"), (snapshot) => {
+      let html = "";
+      snapshot.forEach(doc => {
+        let d = doc.data();
+        html += `
+          <div style="border:1px solid #ccc; margin:10px; padding:10px; border-radius:10px;">
+            <b>${d.title}</b><br>
+            🕒 ${d.datetime}<br>
+            📍 ${d.location}<br>
+            👤 ${d.president}<br>
+            👔 ${d.dress}<br>
+            🏢 ${d.dept}<br>
+            📝 ${d.detail}
+          </div>
+        `;
       });
-    }
-
-    loadData();
+      document.getElementById("list").innerHTML = html;
+    });
   </script>
 
 </body>
